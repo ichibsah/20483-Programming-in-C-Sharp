@@ -78,7 +78,7 @@ namespace School
                         // When the user closes the form, copy the details back to the student
                         student.FirstName = sf.firstName.Text;
                         student.LastName = sf.lastName.Text;
-                        student.DateOfBirth = DateTime.ParseExact(sf.dateOfBirth.Text, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                        student.DateOfBirth = DateTime.ParseExact(sf.dateOfBirth.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         // Enable saving (changes are not made permanent until they are written back to the database)
                         saveChanges.IsEnabled = true;
                     }
@@ -158,12 +158,18 @@ namespace School
         {
             // Convert the date of birth provided in the value parameter and convert to the age of the student in years
             // TODO: Exercise 4: Task 2a: Check that the value provided is not null. If it is, return an empty string
-            // TODO: Exercise 4: Task 2b: Convert the value provided into a DateTime value
-            // TODO: Exercise 4: Task 2c: Work out the difference between the current date and the value provided
-            // TODO: Exercise 4: Task 2d: Convert this result into a number of years
-            // TODO: Exercise 4: Task 2e: Convert the number of years into a string and return it
+            if (value.Equals(null)) { return string.Empty; } else {
+                // TODO: Exercise 4: Task 2b: Convert the value provided into a DateTime value
+                DateTime newValue = DateTime.Parse(value.ToString());
 
-            return "";
+                // TODO: Exercise 4: Task 2c: Work out the difference between the current date and the value provided
+                TimeSpan difference = DateTime.Today.Subtract(newValue);
+                // TODO: Exercise 4: Task 2d: Convert this result into a number of years
+                int differenceInYrs = (int)(difference.Days / 365);
+                // TODO: Exercise 4: Task 2e: Convert the number of years into a string and return it
+                return differenceInYrs.ToString();
+            }
+            //return "";
         }
 
         #region Predefined code
