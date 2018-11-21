@@ -28,13 +28,13 @@ namespace GradesPrototype.Views
         }
 
         #region Event Members
-        // TODO: Exercise 1: Task 2a: Define the LogonSuccess event handler
+        // DONE: Exercise 1: Task 2a: Define the LogonSuccess event handler
         public EventHandler LogonSuccess;
         #endregion
 
         #region Logon Validation
 
-        // TODO: Exercise 1: Task 2b: Implement the Logon_Click event handler for the Logon button
+        // DONE: Exercise 1: Task 2b: Implement the Logon_Click event handler for the Logon button
         // Simulate logging on (no validation or authentication performed yet)
         private void Logon_Click(object sender, RoutedEventArgs e) {
             SessionContext.UserName = username.Text;

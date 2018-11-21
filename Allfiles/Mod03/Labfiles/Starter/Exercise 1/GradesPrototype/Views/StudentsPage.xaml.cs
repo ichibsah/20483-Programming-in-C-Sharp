@@ -44,12 +44,22 @@ namespace GradesPrototype.Views
         #endregion
 
         #region Event Handlers
-        // TODO: Exercise 1: Task 5a: Handle the click event for a student
+        // DONE: Exercise 1: Task 5a: Handle the click event for a student
         // Raise the StudentSelected event and indicate which student was selected
         // The MainWindow window subscribes to this event and displays the view for a single student
         private void Student_Click(object sender, RoutedEventArgs e)
         {
-
+            Button itemClicked = sender as Button;
+            if (itemClicked != null)
+            {
+                // Find out which student was clicked - the Tag property of the button  contains the name
+                string studentName = (string)itemClicked.Tag;
+                if (StudentSelected != null)
+                {
+                    // Raise the StudentSelected event (handled by MainWindow) to display the   details for this student
+                    StudentSelected(sender, new StudentEventArgs(studentName));
+                }
+            }
         }
         #endregion
     }
