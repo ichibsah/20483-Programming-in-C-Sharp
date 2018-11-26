@@ -23,6 +23,11 @@ namespace EventsAndXAML
         public MainWindow()
         {
             InitializeComponent();
-        }        
+        }
+
+        private void BtnGetTime_Click(object sender, RoutedEventArgs e)
+        {
+            lblShowTime.Content = DateTime.Now.ToLongTimeString();
+        }
     }
 }

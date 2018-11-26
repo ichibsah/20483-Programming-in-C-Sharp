@@ -13,13 +13,15 @@ namespace GradesPrototype.Data
     {
         // Collections holding the data used by the prototype application
 
-        // TODO: Exercise 4: Task 1a: Change the Teachers collection into a generic List
-        public static ArrayList Teachers;
+        // DONE: Exercise 4: Task 1a: Change the Teachers collection into a generic List
+        public static List<Teacher> Teachers;
+        //public static ArrayList Teachers;
 
         public static List<Student> Students;
 
-        // TODO: Exercise 4: Task 1b: Change the Grades collection into a generic List
-        public static ArrayList Grades;
+        // DONE: Exercise 4: Task 1b: Change the Grades collection into a generic List
+        public static List<Grade> Grades;
+        //public static ArrayList Grades;
 
         public static List<string> Subjects;
 
@@ -29,8 +31,9 @@ namespace GradesPrototype.Data
         {
             Subjects = new List<string>() { "Math", "English", "History", "Geography", "Science" };
 
-            // TODO: Exercise 4: Task 1c: Populate the Teachers collection
-            Teachers = new ArrayList()
+            // DONE: Exercise 4: Task 1c: Populate the Teachers collection
+            Teachers = new List<Teacher>()
+            //Teachers = new ArrayList()
             {
                 new Teacher() { TeacherID = 1, UserName = "vallee", Password = "password", FirstName = "Esther", LastName = "Valle", Class = "3C" },
                 new Teacher() { TeacherID = 2, UserName = "waited", Password = "password", FirstName = "David", LastName = "Waite", Class = "4B" },
@@ -56,8 +59,9 @@ namespace GradesPrototype.Data
                 new Student() { StudentID = 15, UserName = "liyan", Password = "password", TeacherID = 3, FirstName = "Yan", LastName = "Li" }
             };
 
-            // TODO: Exercise 4: Task 1d: Populate the Grades collection
-            Grades = new ArrayList()
+            // DONE: Exercise 4: Task 1d: Populate the Grades collection
+            Grades = new List<Grade>()
+            //Grades = new ArrayList()
             {
                 new Grade() { StudentID = 1, AssessmentDate = DateTime.Now.ToString("d"), SubjectName = "Math", Assessment = "A-", Comments = "Good" },
                 new Grade() { StudentID = 1, AssessmentDate = DateTime.Now.ToString("d"), SubjectName = "English", Assessment = "B+", Comments = "OK" },

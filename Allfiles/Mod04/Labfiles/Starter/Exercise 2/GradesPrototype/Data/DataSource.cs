@@ -15,14 +15,16 @@ namespace GradesPrototype.Data
         public static ArrayList Teachers;
         public static ArrayList Students;
         public static ArrayList Grades;
-        
-        // TODO: Exercise 2: Task 1a: Define a List collection for holding the names of valid subjects
+        public static List<string> Subjects;
+
+        // DONE: Exercise 2: Task 1a: Define a List collection for holding the names of valid subjects
 
         #region Sample Data
         // Populate the collections with mock data
         public static void CreateData()
         {
-            // TODO: Exercise 2: Task 1b: Populate the list of valid subjects with sample data
+            // DONE: Exercise 2: Task 1b: Populate the list of valid subjects with sample data
+            Subjects = new List<string>() { "Math", "English", "History", "Geography", "Science" };
 
             Teachers = new ArrayList()
             {

@@ -14,8 +14,10 @@ namespace GradesPrototype.Data
         // Collections holding the data used by the prototype application
         public static ArrayList Teachers;
 
-        // TODO: Exercise 3: Task 3a: Change the Students collection into a List<Student>
-        public static ArrayList Students;
+        // DONE: Exercise 3: Task 3a: Change the Students collection into a List<Student>
+        //public static ArrayList Students;
+        public static List<Student> Students;
+
         public static ArrayList Grades;
 
         public static List<string> Subjects;
@@ -33,8 +35,9 @@ namespace GradesPrototype.Data
                 new Teacher() { TeacherID = 3, UserName = "newmanb", Password = "password", FirstName = "Belinda", LastName = "Newman", Class = "2A" }
             };
 
-            // TODO: Exercise 3: Task 3b: Populate the List<Student> collection
-            Students = new ArrayList()
+            // DONE: Exercise 3: Task 3b: Populate the List<Student> collection
+            Students = new List<Student>()
+            //Students = new ArrayList()
             {
                 new Student() { StudentID = 1, UserName = "liuk", Password = "password", TeacherID = 1, FirstName = "Kevin", LastName = "Liu" },
                 new Student() { StudentID = 2, UserName = "weberm", Password = "password", TeacherID = 1, FirstName = "Martin", LastName = "Weber" },
