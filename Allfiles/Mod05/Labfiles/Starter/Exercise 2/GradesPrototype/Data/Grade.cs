@@ -15,14 +15,18 @@ namespace GradesPrototype.Data
     {
         public string UserName { get; set; }
 
-        // TODO: Exercise 2: Task 2a: Make _password a protected field rather than private
-        private string _password = Guid.NewGuid().ToString(); // Generate a random password by default
+        // DONE: Exercise 2: Task 2a: Make _password a protected field rather than private
+        protected string _password = Guid.NewGuid().ToString(); // Generate a random password by default
         public string Password
         {
             set
             {
-                // TODO: Exercise 2: Task 1b: Use the SetPassword method to set the password
-                _password = value;
+                // DONE: Exercise 2: Task 1b: Use the SetPassword method to set the password
+                //_password = value;
+                if (!SetPassword(value))
+                {
+                    throw new ArgumentException("Password not complex enough", "Password");
+                }
             }
         }
 
@@ -31,7 +35,8 @@ namespace GradesPrototype.Data
             return (String.Compare(pass, _password) == 0);
         }
 
-        // TODO: Exercise 2: Task 1a: Define an abstract method for setting the password
+        // DONE: Exercise 2: Task 1a: Define an abstract method for setting the password
+        public abstract bool SetPassword(string pwd);
         // Teachers and Students will have different password complexity policies
     }
 
@@ -80,8 +85,8 @@ namespace GradesPrototype.Data
                 return _subjectName;
             }
 
-            set 
-            { 
+            set
+            {
                 // Check that the specified subject is valid
                 if (DataSource.Subjects.Contains(value))
                 {
@@ -116,13 +121,13 @@ namespace GradesPrototype.Data
                 else
                 {
                     // If the grade is not valid then throw an ArgumentOutOfRangeException
-                    throw new ArgumentOutOfRangeException("Assessment", "Assessment grade must be in the range A+ to E-");;
+                    throw new ArgumentOutOfRangeException("Assessment", "Assessment grade must be in the range A+ to E-"); ;
                 }
             }
         }
 
         public string Comments { get; set; }
-                
+
         // Constructor to initialize the properties of a new Grade
         public Grade(int studentID, string assessmentDate, string subject, string assessment, string comments)
         {
@@ -144,7 +149,7 @@ namespace GradesPrototype.Data
         }
     }
 
-    public class Student: User, IComparable<Student>
+    public class Student : User, IComparable<Student>
     {
         public int StudentID { get; set; }
         public int TeacherID { get; set; }
@@ -182,7 +187,7 @@ namespace GradesPrototype.Data
             string otherStudentsFullName = other.LastName + other.FirstName;
 
             // Use String.Compare to compare the concatenated names and return the result
-            return(String.Compare(thisStudentsFullName, otherStudentsFullName));
+            return (String.Compare(thisStudentsFullName, otherStudentsFullName));
         }
 
         // Add a grade to a student (the grade is already populated)
@@ -198,10 +203,21 @@ namespace GradesPrototype.Data
             {
                 // If the grade belongs to a different student, throw an ArgumentException
                 throw new ArgumentException("Grade", "Grade belongs to a different student");
-            }   
+            }
         }
 
-        // TODO: Exercise 2: Task 2b: Implement SetPassword to set the password for the student
+        // DONE: Exercise 2: Task 2b: Implement SetPassword to set the password for the student
+        public override bool SetPassword(string pwd)
+        {
+            // If the password provided as the parameter is at least 6 characters long then save it and return true
+            if (pwd.Length >= 6)
+            {
+                _password = pwd;
+                return true;
+            }
+            // If the password is not long enough, then do not save it and return false
+            return false;
+        }
         // The password policy is very simple - the password must be at least 6 characters long, but there are no other restrictions
     }
 
@@ -246,7 +262,7 @@ namespace GradesPrototype.Data
             {
                 // If the student is already assigned to a class, throw an ArgumentException
                 throw new ArgumentException("Student", "Student is already assigned to a class");
-            }            
+            }
         }
 
         // Remove a student from the class for this teacher
@@ -262,10 +278,23 @@ namespace GradesPrototype.Data
             {
                 // If the student is not assigned to the class for this teacher, throw an ArgumentException
                 throw new ArgumentException("Student", "Student is not assigned to this class");
-            } 
+            }
         }
 
         // TODO: Exercise 2: Task 2c: Implement SetPassword to set the password for the teacher
         // The password must be at least 8 characters long, and it must contain at least 2 numeric characters
+        public override bool SetPassword(string pwd)
+        {
+            //Match numericMatch = Regex.Match(pwd, @".*[0-9]+.*[0-9]+.*");
+            Match numericMatch = Regex.Match(pwd, @"(.*[0-9]+){2,}.*");
+            // If the password provided as the parameter is at least 6 characters long then save it and return true
+            if (pwd.Length >= 8 && numericMatch.Success)
+            {
+                _password = pwd;
+                return true;
+            }
+            // If the password is not long enough, then do not save it and return false
+            return false;
+        }
     }
 }
