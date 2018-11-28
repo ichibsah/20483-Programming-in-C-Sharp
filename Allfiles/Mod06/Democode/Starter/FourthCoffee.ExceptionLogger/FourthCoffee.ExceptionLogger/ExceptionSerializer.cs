@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Threading.Tasks;
-// TODO 01: Add Using for Newtonsoft.Json
+// DONE 01: Add Using for Newtonsoft.Json
+using Newtonsoft.Json;
 
 namespace FourthCoffee.ExceptionLogger
 {
@@ -24,7 +25,9 @@ namespace FourthCoffee.ExceptionLogger
             if (entry == null)
                 throw new NullReferenceException("entry");
 
-            // TODO 02: Convert object to JSON string
+            // DONE 02: Convert object to JSON string
+            var jsonAsString = JsonConvert.SerializeObject(entry);
+            File.WriteAllText(path, jsonAsString);
         }
 
         /// <summary>
@@ -41,7 +44,8 @@ namespace FourthCoffee.ExceptionLogger
             var jsonAsStriong = File.ReadAllText(path);
 
             // TODO: 03: Convert JSON string to an object 
-            
+            entry = JsonConvert.DeserializeObject<ExceptionEntry>(jsonAsStriong);
+
             return entry;
         }
     }

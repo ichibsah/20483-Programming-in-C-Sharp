@@ -209,15 +209,33 @@ namespace GradesPrototype.Views
         private void LoadReport_Click(object sender, RoutedEventArgs e)
         {
             //TODO: 02: Task 1: Define the File Dialog settings to load the report file
-            
-            //TODO: 02: Task 2a: Check the user file selection
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = @"JSON documents|*.json|Excel documents|*.xls;*.cvs";
+            /*dialog.Filter = @"|All Image Files|*.BMP;*.bmp;*.JPG;*.JPEG*.jpg;*.jpeg;*.PNG;*.png;*.GIF;*.gif;*.tif;*.tiff;*.ico;*.ICO
+           |PNG|*.PNG;*.png
+           |JPEG|*.JPG;*.JPEG*.jpg;*.jpeg
+           |Bitmap(.BMP,.bmp)|*.BMP;*.bmp                                    
+           |GIF|*.GIF;*.gif
+           |TIF|*.tif;*.tiff
+           |ICO|*.ico;*.ICO";*/
 
-            //TODO: 02: Task 2b: Read the report data from Disk
-            
-            //TODO: 02: Task 2c: Desirialize the JSON data to grades list
-            
-            //TODO: 02: Task 2d: Display the saved report to the user
-            
+            // Display the dialog and get a filename from the user
+            bool? result = dialog.ShowDialog();
+            //Done: 02: Task 2a: Check the user file selection
+            if (result.HasValue && result.Value)
+            {
+                //Done: 02: Task 2b: Read the report data from Disk
+                string gradesAsJson = File.ReadAllText(dialog.FileName);
+                //Done: 02: Task 2c: Desirialize the JSON data to grades list
+                //var gradeList = JsonConvert.DeserializeObject<List<Grade>>(gradesAsJson);
+                List<Grade> gradeList = JsonConvert.DeserializeObject<List<Grade>>(gradesAsJson);
+                //List<Grade> gradeList = new List<Grade>();
+                HelperClass.ReadFile(gradesAsJson, out gradeList);
+                //Done: 02: Task 2d: Display the saved report to the user
+                studentGrades.ItemsSource = gradeList;
+
+                
+            }
         }
     }
 }

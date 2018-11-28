@@ -11,10 +11,10 @@ namespace FourthCoffee.LogProcessor
         static void Main(string[] args)
         {
             //TODO 09: Replace [Repository Root] with your folder path 
-            var logLocator = new LogLocator(@"[Repository Root]\Mod06\Democode\Data\Logs\");
+            var logLocator = new LogLocator(@"F:\Sandbox\20483-Programming-in-C-Sharp\Allfiles\Mod06\Democode\Data\Logs\");
             var logCombiner = new LogCombiner(logLocator);
 
-            logCombiner.CombineLogs(@"[Repository Root]\Mod06\Democode\Data\Logs\CombinedLog.txt");
+            logCombiner.CombineLogs(@"F:\Sandbox\20483-Programming-in-C-Sharp\Allfiles\Mod06\Democode\Data\Logs\CombinedLog.txt");
 
         }
     }

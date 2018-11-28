@@ -30,8 +30,9 @@ namespace FourthCoffee.LogProcessor
         /// <param name="combinedLogPath">The output file path for the combined log file.</param>
         public void CombineLogs(string combinedLogPath)
         {
-            // TODO: 03: Check for existing combined log file and delete if it already exists.
-            
+            // DONE: 03: Check for existing combined log file and delete if it already exists.
+            if (File.Exists(combinedLogPath))
+                File.Delete(combinedLogPath);
 
             var logFiles = this._locator.GetLogFilePaths();
 
@@ -55,14 +56,16 @@ namespace FourthCoffee.LogProcessor
             heading.Add("######### Combined Log File ############");
             heading.Add("########################################");
 
-            // TODO: 04: Write the heading to the combined log file.
-            
+            // DONE: 04: Write the heading to the combined log file.
+            File.AppendAllLines(combinedLogPath, heading);
+
         }
 
         private void WriteLog(string combinedLogPath, string logPath)
         {
-            // TODO: 05: Get the log file name without the file extension.
-         
+            // DONE: 05: Get the log file name without the file extension.
+            var logName = Path.GetFileNameWithoutExtension(logPath);
+
 
             if (logName.Equals("combinedlog"))
                 return;
@@ -75,14 +78,16 @@ namespace FourthCoffee.LogProcessor
             logContent.Add(logText);
             logContent.Add("");
 
-            // TODO: 07: Write the log file contents to the combined log file.
-            
+            // DONE: 07: Write the log file contents to the combined log file.
+            File.AppendAllLines(combinedLogPath, logContent);
+
         }
 
         private string GetLogFileText(string logPath)
         {
-            // TODO: 06: Read the contents of the existing log file.
-            
+            // DONE: 06: Read the contents of the existing log file.
+            var logText = File.ReadAllText(logPath);
+
 
             if (string.IsNullOrEmpty(logText))
             {

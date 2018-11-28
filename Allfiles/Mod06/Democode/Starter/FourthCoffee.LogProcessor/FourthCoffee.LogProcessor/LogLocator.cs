@@ -16,9 +16,11 @@ namespace FourthCoffee.LogProcessor
         /// <param name="logDirectoryRoot">The root log file directory path.</param>
         public LogLocator(string logDirectoryRoot)
         {
-            // TODO: 01: Ensure log file directory exists.
-
-
+            // DONE: 01: Ensure log file directory exists.
+            if (!Directory.Exists(logDirectoryRoot))
+            {
+                throw new DirectoryNotFoundException();
+            }
             this._logDirectoryPath = logDirectoryRoot;
         }
 
@@ -27,8 +29,9 @@ namespace FourthCoffee.LogProcessor
         /// </summary>
         public IEnumerable<string> GetLogFilePaths()
         {
-            // TODO: 02: Get all log file paths.
-                      
+            // DONE: 02: Get all log file paths.
+            return Directory.GetFiles(this._logDirectoryPath, "*.txt");
+
         }
     }
 }
