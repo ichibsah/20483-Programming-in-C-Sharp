@@ -40,7 +40,7 @@ namespace GradesPrototype.Views
         {
             // Find the user in the list of possible users - first check whether the user is a Teacher
             // TODO: Exercise 2: Task 2c: Load User and Students data with Teachers
-            var teacher = (from Grades.DataModel.Teacher t in SessionContext.DBContext.Teachers
+            var teacher = (from Grades.DataModel.Teacher t in SessionContext.DBContext.Teachers.Expand("User, Students")
                            where t.User.UserName == username.Text && t.User.UserPassword == password.Password
                            select t).FirstOrDefault();
 
@@ -61,7 +61,7 @@ namespace GradesPrototype.Views
             else
             {
                 // TODO: Exercise 2: Task 2d: Load User and Grades data with Students
-                var student = (from Grades.DataModel.Student s in SessionContext.DBContext.Students
+                var student = (from Grades.DataModel.Student s in SessionContext.DBContext.Students.Expand("User, Grades")
                                where s.User.UserName == username.Text && s.User.UserPassword == password.Password 
                                select s).FirstOrDefault();
 

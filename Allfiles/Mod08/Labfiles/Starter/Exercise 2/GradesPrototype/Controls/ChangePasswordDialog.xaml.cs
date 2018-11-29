@@ -67,7 +67,7 @@ namespace GradesPrototype.Controls
                 return;
             }
             // TODO: Exercise 2: Task 3c: Specify that the current user has been changed
-
+            SessionContext.DBContext.UpdateObject(currentUser);
             SessionContext.Save();
 
             // Indicate that the data is valid

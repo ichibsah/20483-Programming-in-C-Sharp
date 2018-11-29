@@ -39,8 +39,10 @@ namespace GradesPrototype.Views
                 {
                     if (student.TeacherUserId == SessionContext.CurrentTeacher.UserId)
                     {
-                        // TODO: Exercise 2: Task 2b: Load User and Grades data with Students
-                        list.Items.Add(student);
+                    // TODO: Exercise 2: Task 2b: Load User and Grades data with Students
+                    SessionContext.DBContext.LoadProperty(student, "User");
+                    SessionContext.DBContext.LoadProperty(student, "Grades");
+                    list.Items.Add(student);
                     }
                 }
 
@@ -113,7 +115,7 @@ namespace GradesPrototype.Views
 
                     // Add the student to the Students collection
                     // TODO: Exercise 2: Task 2i: Use the AddToStudents method to add a new student
-                    SessionContext.DBContext.Students.Add(newStudent);
+                    SessionContext.DBContext.AddToStudents(newStudent);
                     SessionContext.Save();
                 }
             }
