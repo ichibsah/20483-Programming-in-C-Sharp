@@ -26,7 +26,7 @@ namespace APMTasks
             InitializeComponent();
         }
 
-        private void btnCheckUrl_Click(object sender, RoutedEventArgs e)
+        private async void btnCheckUrl_Click(object sender, RoutedEventArgs e)
         {
             string url = txtUrl.Text;
             if (!String.IsNullOrEmpty(url))
@@ -34,7 +34,9 @@ namespace APMTasks
                 try
                 {
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                    request.BeginGetResponse(new AsyncCallback(ResponseCallback), request);
+                    //request.BeginGetResponse(new AsyncCallback(ResponseCallback), request);
+                    HttpWebResponse response = await Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, request) as HttpWebResponse;
+                    lblResult.Content = String.Format("The URL returned the following status code: {0}  ", response.StatusCode);
                 }
                 catch (Exception ex)
                 {
