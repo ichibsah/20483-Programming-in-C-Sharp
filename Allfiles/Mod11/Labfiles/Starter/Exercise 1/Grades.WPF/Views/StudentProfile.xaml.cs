@@ -258,7 +258,7 @@ namespace Grades.WPF
                     try
                     {
                         // TODO: Exercise 1: Task 2b: Generate the report by using a separate task
-
+                        Task.Run(() => GenerateStudentReport(SessionContext.CurrentStudent, dialog.FileName));
                     }
                     catch (Exception ex)
                     {
