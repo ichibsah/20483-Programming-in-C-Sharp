@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Grades.WPF</RootNamespace>
     <AssemblyName>Grades.WPF</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -43,6 +43,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Grades.Utilities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7c1113407d9c54c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Grades.Utilities\bin\Debug\Grades.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Data.OData, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Data.Services.Client, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -210,12 +214,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Grades.Utilities\Grades.Utilities.csproj">
-      <Project>{80d97d17-a0df-4b62-930a-bf9b39140433}</Project>
-      <Name>Grades.Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ServiceReferenceMetadataStorage Include="Service References\GradesService.DataModel\">
