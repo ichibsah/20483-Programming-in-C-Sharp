@@ -111,38 +111,54 @@ namespace Grades.Utilities
         {
 
             // TODO: Exercise 1: Task 3a: Get the public key from the X509 certificate.
-            throw new NotImplementedException();
-            
+            //throw new NotImplementedException();
+            var provider = (RSACryptoServiceProvider)this._certificate.PublicKey.Key;
 
             // TODO: Exercise 1: Task 3b: Create an instance of the AesManaged algorithm.
-            
-            // TODO: Exercise 1: Task 3c: Create an underlying stream for the unencrypted data.
-                
-            // TODO: Exercise 1: Task 3d: Create an AES encryptor based on the key and IV.
-                    
+            using (var algorithm = new AesManaged())
+            {
+                // TODO: Exercise 1: Task 3c: Create an underlying stream for the unencrypted data.
+                using (var outStream = new MemoryStream())
+                {
+                    // TODO: Exercise 1: Task 3d: Create an AES encryptor based on the key and IV.
+                    using (var encryptor = algorithm.CreateEncryptor())
+                    {
+                        var keyFormatter = new RSAPKCS1KeyExchangeFormatter(provider);
+                        var encryptedKey = keyFormatter.CreateKeyExchange(algorithm.Key, algorithm.GetType());
 
-            // TODO: Exercise 1: Task 3e: Create byte arrays to get the length of the encryption key and IV. 
-                        
+                        // TODO: Exercise 1: Task 3e: Create byte arrays to get the length of the encryption key and IV. 
+                        var keyLength = BitConverter.GetBytes(encryptedKey.Length);
+                        var ivLength = BitConverter.GetBytes(algorithm.IV.Length);
 
-            // TODO: Exercise 1: Task 3f: Write the following to the out stream: 
-            // 1) the length of the encryption key.
-            // 2) the length of the IV.
-            // 3) the encryption key.
-            // 4) the IV.
+                        // TODO: Exercise 1: Task 3f: Write the following to the out stream: 
+                        // 1) the length of the encryption key.
+                        // 2) the length of the IV.
+                        // 3) the encryption key.
+                        // 4) the IV.
+                        outStream.Write(keyLength, 0, keyLength.Length);
+                        outStream.Write(ivLength, 0, ivLength.Length);
+                        outStream.Write(encryptedKey, 0, encryptedKey.Length);
+                        outStream.Write(algorithm.IV, 0, algorithm.IV.Length);
 
-                       
 
-            // TODO: Exercise 1: Task 3g: Create a CryptoStream that will write the encypted data to the underlying buffer.
-                        
-            // TODO: Exercise 1: Task 3h: Write all the data to the stream.
-                            
+                        // TODO: Exercise 1: Task 3g: Create a CryptoStream that will write the encypted data to the underlying buffer.
+                        using (var encrypt = new CryptoStream(outStream, encryptor, CryptoStreamMode.Write))
+                        {
 
-            // TODO: Exercise 1: Task 3i: Return the encrypted buffered data as a byte[].
-                           
-                       
-                   
-                
-            
+                            // TODO: Exercise 1: Task 3h: Write all the data to the stream.
+                            encrypt.Write(bytesToEncrypt, 0, bytesToEncrypt.Length);
+                            encrypt.FlushFinalBlock();
+
+                            // TODO: Exercise 1: Task 3i: Return the encrypted buffered data as a byte[].
+                            return outStream.ToArray();
+                        }
+                    }
+                }
+            }
+
+
+
+
         }
 
         public byte[] Encrypt(byte[] bytesToEncypt)
@@ -178,6 +194,9 @@ namespace Grades.Utilities
                 store.Open(OpenFlags.ReadOnly);
 
                 // TODO: Exercise 1: Task 2a: Loop through the certificates in the X509 store to return the one matching _certificateSubjectName.
+                foreach (var cert in store.Certificates)
+                    if (cert.SubjectName.Name.Equals(this._certificateSubjectName, StringComparison.InvariantCultureIgnoreCase))
+                        return cert;
 
                 return null;
             }
@@ -201,7 +220,7 @@ namespace Grades.Utilities
             var encryptedBytes = this.Encrypt(rawBytes);
 
             // TODO: Exercise 1: Task 4a: Write the encrypted bytes to disk.
-            
+            File.WriteAllBytes(filePath, encryptedBytes);
 
             // Close the current document and discard changes.
             currentDocument.Close(false);
